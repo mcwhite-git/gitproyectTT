@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SoliPrEs</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+  <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="/index">SoliPrEs</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/index">Inicio</a></li>
+          <li class="dropdown"><a href="#"><span>Servicios</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/crearsolicitud">Solicitudes</a></li>
+              <li><a href="/asignarpresupuesto">Presupuesto</a></li>
+              <li><a href="#">Estadística</a></li>
+              <li class="dropdown"><a href="#"><span>Administrar</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="/mostrarusuarios">Usuarios</a></li>
+                  <li><a href="/mostrarueb">UEB</a></li>
+                  <li><a href="/mostrarproductos">Productos</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="#">Contáctenos</a></li>
+          <% if (login) { %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Bienvenido: <strong><%= nombre %></strong> </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="">Preferencias</a></li>             
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/salir">Salir</a></li>
+              </ul>
+            </li>
+            <% } else { %>              
+              <li><a class="getstarted scrollto" href="/login">Autenticarse</a></li>
+              <% } %>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main class="content">
+    <div class="container-fluid p-0 my-4">
+      <div class="row mb-2 mb-xl-3">
+        <div class="col-auto d-none d-sm-block">
+          <h3>Agregar <strong>Usuarios</strong></h3>
+        </div>
+
+      </div>
+    </div>
+    <!--formulario para agregar productos-->
+
+    <div class="container mt-4">
+      <div class="card border-secundary">
+        <div class="card-body">
+          <div class="col-auto d-none d-sm-block">
+            <h3>Agregar <strong>Producto</strong></h3>
+          </div>
+          <form action="/formcrearproducto" method="POST" class="needs-validation form-editar my-4">
+            <div class="mb-3">
+              <div class="row my-2">
+                <div class="col">
+                  <label for="validationCustom01" class="form-label">Código</label>
+                  <input type="text" class="form-control" id="validationCustom01" name="codigo" tabindex="4" required>
+                </div>
+                <div class="col">
+                  <label for="validationCustom01" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="validationCustom01" name="nombre" tabindex="5" required>
+                </div>
+                <div class="col">
+                  <label for="validationCustom01" class="form-label">Descripción</label>
+                  <input type="text" class="form-control" id="validationCustom01" name="descripcion" tabindex="6"
+                    required>
+                </div>
+              </div>
+              <div class="col-4 my-2">
+                <label for="validationCustom04" class="form-label">UEB</label>
+                <select name="ueb" id="validationCustom04" class="form-select" required>
+                  <optgroup>
+                    <option selected disabled value="">...</option>
+                    <% results.forEach((ueb)=>{ %>
+                      <option value="<%= ueb.id_ueb %>">
+                        <%= ueb.nombre %>
+                      </option>
+                      <% }) %>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="col col-2">
+                <label for="validationCustom01" class="form-label">Categoría</label>
+                <input type="text" class="form-control" id="validationCustom01" name="categoria" tabindex="1" required>
+              </div>
+              <button type="submit" class="btn btn-outline-success my-4" tabindex="11" data-toggle="tooltip"
+                title="Agregar el usuario"><i class='bx bxs-save'></i>Agregar</button>
+              <a href="/mostrarproductos" class="btn btn-outline-secondary" data-toggle="tooltip" title="Regresar"><i
+                  class='bx bxs-x-square'></i>Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="container d-md-flex py-4">
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright justify-content-center">
+            &copy; Copyright <strong><span>Grupo de Desarrollo</span></strong>. Todos los derechos reservados.
+          </div>
+        </div>
+      </div>
+      </footer><!-- End Footer -->
+
+      <!-- Vendor JS Files -->
+      <script src="../vendor/aos/aos.js"></script>
+      <script src="../js/bootstrap.bundle.min.js"></script>
+      <script src="../js/app.js"></script>
+      <script src="../js/jquery.js"></script>
+      <script src="../js/jquery.dataTables.min.js"></script>
+      <script src="../js/dataTables.bootstrap5.min.js"></script>
+      <script src="../js/dataTables.responsive.min.js"></script>
+      <script src="../js/dataTables.select.min.js"></script>      
+      <script src="../js/sweetalert2/dist/sweetalert2.all.min.js"></script>
+      <script src="../js/main.js"></script>
+
+      <script>$('#stilotableusuarios').DataTable({
+
+          responsive: true,
+          autowidth: false,
+        });
+      </script>
+
+     
+      <script>
+        $('.form-editar').submit(function (e) {
+          e.preventDefault();
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'El producto ha sido agregado con éxito',
+            showConfirmButton: false,
+            timer: 2000
+          }).then(() => {
+            window.location = 'mostrarproductos'
+            this.submit();
+          })
+        });
+      </script>
+
+</body>
+
+</html>
